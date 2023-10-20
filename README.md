@@ -1,7 +1,7 @@
 # Catalogo de Automóviles
 
 ## Descripción
-Este programa de gestión de catálogo de automóviles te permite agregar, eliminar y listar automóviles. Además, guarda automáticamente el catálogo en un archivo, lo que te permite retomar tu trabajo donde lo dejaste.
+Este programa de gestión de catálogo de automóviles te permite agregar, eliminar y listar automóviles. Además, guarda automáticamente el catálogo en un archivo serializado, lo que te permite retomar tu trabajo donde lo dejaste de forma segura.
 
 ## Funcionalidades
 
@@ -24,26 +24,40 @@ Este programa de gestión de catálogo de automóviles te permite agregar, elimi
 
 ## Instrucciones de Uso
 1. Clona este repositorio o descarga los archivos del proyecto.
-
-2. Compila el programa utilizando el comando `make compile`.
-
-3. Ejecuta el programa con `java -jar CatalogoAutomoviles.jar`.
-
+   ```console
+   git clone https://github.com/rubencerroo/Gestor-Automoviles.git
+   ```
+2. Muevete a la carpeta GestorAutomovil
+   ```console
+   cd GestorAutomovil
+   ```
+3. Si es la primera vez que quieres ejecutar el programa haz:
+   ```console
+   make completo
+   ```
+    Esto hara un clean, compile,jar,javadoc,run.
+   
 4. Sigue las opciones del menú para gestionar tu catálogo de automóviles.
 
-5. Los cambios se guardarán automáticamente en un archivo `catalogo.ser`.
+5. Los cambios se guardarán automáticamente en un archivo `catalogo.ser` al presionar 0 para salir del programa.
+6. La proxima vez puedes simplemente ejecutar el programa haciendo:
+   ```console
+   make run
+   ```
 
 ## Comandos Makefile
 - `make compile`: Compila los archivos fuente.
 - `make jar`: Crea un archivo JAR ejecutable.
 - `make javadoc`: Genera la documentación Javadoc.
 - `make clean`: Limpia los archivos generados.
+- `make run`: Ejecutar el jar del programa.
+- `make completo`: Ejecuta todos los anteriores para que el programa funcione correctamente.
+
+## Diagrama UML
+![UMLDiagram](https://github.com/rubencerroo/Gestor-Automoviles/assets/119308526/2ef609a2-e6b9-4eee-9c6f-6185e7d07ad2)
+
 
 ## Notas Adicionales
-- Asegúrate de crear un archivo de Manifest (`manifest.mf`) para el archivo JAR.
 
 - Los archivos generados (archivos binarios y documentación) se almacenan en las carpetas `bin` y `doc`.
 
-- Si deseas modificar el programa, recuerda mantener la estructura de paquetes.
-
-¡Disfruta de la gestión de tu catálogo de automóviles!
