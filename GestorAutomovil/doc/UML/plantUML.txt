@@ -1,0 +1,49 @@
+@startuml
+class main.Principal {
+  + main(args: String[]): void
+}
+class dominio.Automovil {
+  - referencia: String
+  - marca: String
+  - modelo: String
+  - year: int
+  - precio: double
+  + getReferencia(): String
+  + setReferencia(referencia: String): void
+  + getMarca(): String
+  + setMarca(marca: String): void
+  + getModelo(): String
+  + setModelo(modelo: String): void
+  + getYear(): int
+  + setYear(year: int): void
+  + getPrecio(): double
+  + setPrecio(precio: double): void
+  + toString(): String
+}
+class dominio.Catalogo {
+  - automoviles: ArrayList
+  + agregarAutomovil(automovil: Automovil): void
+  + eliminarAutomovil(referencia: String): void
+  + listarAutomoviles(): void
+}
+
+
+annotation java.lang.Override
+class dominio.Automovil
+class dominio.Catalogo
+class java.util.ArrayList
+class java.util.InputMismatchException
+class java.util.Scanner
+class java.util.UUID
+class main.Principal
+interface java.io.Serializable
+dominio.Automovil ..> java.lang.Override
+dominio.Automovil --|> java.io.Serializable
+dominio.Catalogo ..> java.util.ArrayList
+dominio.Catalogo ..> java.util.UUID
+dominio.Catalogo --|> java.io.Serializable
+main.Principal ..> dominio.Automovil
+main.Principal ..> dominio.Catalogo
+main.Principal ..> java.util.InputMismatchException
+main.Principal ..> java.util.Scanner
+@enduml
