@@ -112,6 +112,6 @@ public class Automovil implements Serializable {
 
     @Override
     public String toString() {
-        return "Referencia: " + referencia + ", Marca: " + marca + ", Modelo: " + modelo + ", Year: " + year + ", Precio: $" + precio;
+        return "Referencia: " + referencia + ", Marca: " + marca + ", Modelo: " + modelo + ", Year: " + year + ", Precio: " + precio + " Euros";
     }
 }
