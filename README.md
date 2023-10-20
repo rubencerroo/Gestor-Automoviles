@@ -27,20 +27,24 @@ Este programa de gestión de catálogo de automóviles te permite agregar, elimi
    ```console
    git clone https://github.com/rubencerroo/Gestor-Automoviles.git
    ```
-2. Muevete a la carpeta GestorAutomovil
+2. Muevete a la carpeta descargada:
+   ```console
+   cd Gestor-Automoviles
+   ```
+3. Muevete a la carpeta GestorAutomovil
    ```console
    cd GestorAutomovil
    ```
-3. Si es la primera vez que quieres ejecutar el programa haz:
+4. Si es la primera vez que quieres ejecutar el programa haz:
    ```console
    make completo
    ```
     Esto hara un clean, compile,jar,javadoc,run.
    
-4. Sigue las opciones del menú para gestionar tu catálogo de automóviles.
+5. Sigue las opciones del menú para gestionar tu catálogo de automóviles.
 
-5. Los cambios se guardarán automáticamente en un archivo `catalogo.ser` al presionar 0 para salir del programa.
-6. La proxima vez puedes simplemente ejecutar el programa haciendo:
+6. Los cambios se guardarán automáticamente en un archivo `catalogo.ser` al presionar 0 para salir del programa.
+7. La proxima vez puedes simplemente ejecutar el programa haciendo:
    ```console
    make run
    ```
