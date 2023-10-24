@@ -37,10 +37,21 @@ public class Catalogo implements Serializable {
     /**
      * Lista los automóviles en el catálogo.
      */
-    public void listarAutomoviles() {
-        System.out.println("Catalogo de Automoviles:");
-        for (Automovil auto : automoviles) {
-            System.out.println(auto);
-        }
+    public void listarCoches() {
+        automoviles.stream()
+                .filter(auto -> auto instanceof Coche)
+                .forEach(System.out::println);
+    }
+
+    public void listarMotos() {
+        automoviles.stream()
+                .filter(auto -> auto instanceof Moto)
+                .forEach(System.out::println);
+    }
+
+    public void listarCamiones() {
+        automoviles.stream()
+                .filter(auto -> auto instanceof Camion)
+                .forEach(System.out::println);
     }
 }
