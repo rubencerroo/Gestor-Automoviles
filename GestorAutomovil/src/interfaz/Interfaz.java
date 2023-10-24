@@ -1,133 +1,213 @@
 package interfaz;
 
-import dominio.*;
-import java.util.InputMismatchException;
-import java.util.Scanner;
+import dominio.Automovil;
+import dominio.Camion;
+import dominio.Catalogo;
+import dominio.Coche;
+import dominio.Moto;
 
-/**
- * Esta clase representa la interfaz de usuario para gestionar un catálogo de automóviles.
- */
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+
 public class Interfaz {
+    private JFrame frame;
     private Catalogo catalogo;
-    private Scanner scanner;
+    private DefaultListModel<Coche> cocheListModel;
+    private DefaultListModel<Moto> motoListModel;
+    private DefaultListModel<Camion> camionListModel;
 
     public Interfaz(Catalogo catalogo) {
         this.catalogo = catalogo;
-        this.scanner = new Scanner(System.in);
-    }
 
-    public void iniciar() {
-        int opcion = -1;
+        frame = new JFrame("Gestor Automoviles");
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.setSize(800, 400);
+        frame.setLayout(new GridLayout(4, 1));
 
-        do {
-            System.out.println("Gestion de Catalogo de Automoviles");
-            System.out.println("1. Agregar Coche");
-            System.out.println("2. Agregar Moto");
-            System.out.println("3. Agregar Camion");
-            System.out.println("4. Eliminar Automovil");
-            System.out.println("5. Listar Automoviles");
-            System.out.println("0. Salir");
-            System.out.print("Elija una opcion: ");
+        cocheListModel = new DefaultListModel<>();
+        JList<Coche> cocheList = new JList<>(cocheListModel);
+        JScrollPane cocheScrollPane = new JScrollPane(cocheList);
+        frame.add(cocheScrollPane);
 
-            try {
-                opcion = scanner.nextInt();
-                scanner.nextLine(); // Consume the newline character
+        motoListModel = new DefaultListModel<>();
+        JList<Moto> motoList = new JList<>(motoListModel);
+        JScrollPane motoScrollPane = new JScrollPane(motoList);
+        frame.add(motoScrollPane);
 
-                switch (opcion) {
-                    case 1:
-                        agregarCoche();
-                        break;
-                    case 2:
-                        agregarMoto();
-                        break;
-                    case 3:
-                        agregarCamion();
-                        break;
-                    case 4:
-                        eliminarAutomovil();
-                        break;
-                    case 5:
-                        listarAutomoviles();
-                        break;
-                    case 0:
-                        System.out.println("Saliendo del programa.");
-                        break;
-                    default:
-                        System.out.println("Opción no válida. Inténtelo de nuevo.");
-                        break;
-                }
-            } catch (InputMismatchException e) {
-                System.out.println("Error: Ingrese una opción válida.");
-                scanner.nextLine(); // Clear invalid input
+        camionListModel = new DefaultListModel<>();
+        JList<Camion> camionList = new JList<>(camionListModel);
+        JScrollPane camionScrollPane = new JScrollPane(camionList);
+        frame.add(camionScrollPane);
+
+        JPanel buttonPanel = new JPanel();
+        buttonPanel.setLayout(new GridLayout(0, 1));
+
+        JButton agregarCocheButton = new JButton("Agregar Coche");
+        JButton agregarMotoButton = new JButton("Agregar Moto");
+        JButton agregarCamionButton = new JButton("Agregar Camion");
+        JButton salirButton = new JButton("Salir");
+
+        buttonPanel.add(agregarCocheButton);
+        buttonPanel.add(agregarMotoButton);
+        buttonPanel.add(agregarCamionButton);
+        buttonPanel.add(salirButton);
+        frame.add(buttonPanel);
+        refreshLists();
+
+        agregarCocheButton.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                showCocheDialog();
+                refreshLists();
             }
-        } while (opcion != 0);
+        });
+
+        agregarMotoButton.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                showMotoDialog();
+                refreshLists();
+            }
+        });
+
+        agregarCamionButton.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                showCamionDialog();
+                refreshLists();
+            }
+        });
+
+        salirButton.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                JOptionPane.showMessageDialog(frame, "Saliendo del programa.");
+                System.exit(0);
+            }
+        });
+
+        
+        cocheList.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                if (e.getClickCount() == 2) { // Double-click
+                    int selectedIndex = cocheList.getSelectedIndex();
+                    if (selectedIndex != -1) {
+                        int option = JOptionPane.showConfirmDialog(frame,
+                                "Eliminar este Coche?", "Confirmar Eliminaci\u00f3n",
+                                JOptionPane.YES_NO_OPTION);
+                        if (option == JOptionPane.YES_OPTION) {
+                            Coche selectedCoche = cocheListModel.get(selectedIndex);
+                            catalogo.eliminarAutomovil(selectedCoche.getReferencia());
+                            cocheListModel.removeElement(selectedCoche);
+                        }
+                    }
+                }
+                refreshLists();
+            }
+        });
+
+        motoList.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                if (e.getClickCount() == 2) { // Double-click
+                    int selectedIndex = motoList.getSelectedIndex();
+                    if (selectedIndex != -1) {
+                        int option = JOptionPane.showConfirmDialog(frame,
+                                "Eliminar esta Moto?", "Confirmar Eliminaci\u00f3n",
+                                JOptionPane.YES_NO_OPTION);
+                        if (option == JOptionPane.YES_OPTION) {
+                            Moto selectedMoto = motoListModel.get(selectedIndex);
+                            catalogo.eliminarAutomovil(selectedMoto.getReferencia());
+                            motoListModel.removeElement(selectedMoto);
+                        }
+                    }
+                }
+                refreshLists();
+            }
+        });
+
+        camionList.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                if (e.getClickCount() == 2) { // Double-click
+                    int selectedIndex = camionList.getSelectedIndex();
+                    if (selectedIndex != -1) {
+                        int option = JOptionPane.showConfirmDialog(frame,
+                                "Eliminar este Camion?", "Confirmar Eliminaci\u00f3n",
+                                JOptionPane.YES_NO_OPTION);
+                        if (option == JOptionPane.YES_OPTION) {
+                            Camion selectedCamion = camionListModel.get(selectedIndex);
+                            catalogo.eliminarAutomovil(selectedCamion.getReferencia());
+                            camionListModel.removeElement(selectedCamion);
+                        }
+                    }
+                }
+                refreshLists();
+            }
+        });
+
+        frame.setVisible(true);
     }
 
-    private void agregarCoche() {
-        System.out.print("Ingrese la marca del coche: ");
-        String marca = scanner.nextLine();
-        System.out.print("Ingrese el modelo del coche: ");
-        String modelo = scanner.nextLine();
-        System.out.print("Ingrese el año del coche: ");
-        int year = scanner.nextInt();
-        System.out.print("Ingrese el precio del coche: ");
-        double precio = scanner.nextDouble();
-        System.out.print("Ingrese el número de puertas del coche: ");
-        int numeroPuertas = scanner.nextInt();
+    private void showCocheDialog() {
+        String marca = JOptionPane.showInputDialog(frame, "Ingrese la marca del Coche:");
+        String modelo = JOptionPane.showInputDialog(frame, "Ingrese el modelo del Coche:");
+        int year = Integer.parseInt(JOptionPane.showInputDialog(frame, "Ingrese el a\u00f1o del Coche:"));
+        double precio = Double.parseDouble(JOptionPane.showInputDialog(frame, "Ingrese el precio del Coche:"));
+        int numeroPuertas = Integer.parseInt(JOptionPane.showInputDialog(frame, "Ingrese el n\u00famero de puertas del Coche:"));
 
         Coche coche = new Coche(marca, modelo, year, precio, numeroPuertas);
         catalogo.agregarAutomovil(coche);
-        System.out.println("Coche agregado al catálogo con referencia: " + coche.getReferencia());
+        cocheListModel.addElement(coche);
     }
 
-    private void agregarMoto() {
-        System.out.print("Ingrese la marca de la moto: ");
-        String marca = scanner.nextLine();
-        System.out.print("Ingrese el modelo de la moto: ");
-        String modelo = scanner.nextLine();
-        System.out.print("Ingrese el año de la moto: ");
-        int year = scanner.nextInt();
-        System.out.print("Ingrese el precio de la moto: ");
-        double precio = scanner.nextDouble();
-        System.out.print("La moto tiene marchas (true/false): ");
-        boolean tieneMarchas = scanner.nextBoolean();
+    private void showMotoDialog() {
+        String marca = JOptionPane.showInputDialog(frame, "Ingrese la marca de la Moto:");
+        String modelo = JOptionPane.showInputDialog(frame, "Ingrese el modelo de la Moto:");
+        int year = Integer.parseInt(JOptionPane.showInputDialog(frame, "Ingrese el a\u00f1o de la Moto:"));
+        double precio = Double.parseDouble(JOptionPane.showInputDialog(frame, "Ingrese el precio de la Moto:"));
+        boolean tieneMarchas = Boolean.parseBoolean(JOptionPane.showInputDialog(frame, "La Moto tiene marchas (true/false):"));
 
         Moto moto = new Moto(marca, modelo, year, precio, tieneMarchas);
         catalogo.agregarAutomovil(moto);
-        System.out.println("Moto agregada al catálogo con referencia: " + moto.getReferencia());
+        motoListModel.addElement(moto);
     }
 
-    private void agregarCamion() {
-        System.out.print("Ingrese la marca del camión: ");
-        String marca = scanner.nextLine();
-        System.out.print("Ingrese el modelo del camión: ");
-        String modelo = scanner.nextLine();
-        System.out.print("Ingrese el año del camión: ");
-        int year = scanner.nextInt();
-        System.out.print("Ingrese el precio del camión: ");
-        double precio = scanner.nextDouble();
-        System.out.print("Ingrese la capacidad de carga del camión: ");
-        double capacidadCarga = scanner.nextDouble();
+    private void showCamionDialog() {
+        String marca = JOptionPane.showInputDialog(frame, "Ingrese la marca del Camion:");
+        String modelo = JOptionPane.showInputDialog(frame, "Ingrese el modelo del Camion:");
+        int year = Integer.parseInt(JOptionPane.showInputDialog(frame, "Ingrese el a\u00f1o del Camion:"));
+        double precio = Double.parseDouble(JOptionPane.showInputDialog(frame, "Ingrese el precio del Camion:"));
+        double capacidadCarga = Double.parseDouble(JOptionPane.showInputDialog(frame, "Ingrese la capacidad de carga del Camion:"));
 
         Camion camion = new Camion(marca, modelo, year, precio, capacidadCarga);
         catalogo.agregarAutomovil(camion);
-        System.out.println("Camión agregado al catálogo con referencia: " + camion.getReferencia());
+        camionListModel.addElement(camion);
     }
 
-    private void eliminarAutomovil() {
-        System.out.print("Ingrese la referencia del automóvil que desea eliminar: ");
-        String referenciaEliminar = scanner.next();
-        catalogo.eliminarAutomovil(referenciaEliminar);
-        System.out.println("Automóvil con referencia " + referenciaEliminar + " eliminado del catálogo.");
+    private void refreshLists() {
+        
+        cocheListModel.clear();
+        motoListModel.clear();
+        camionListModel.clear();
+
+        
+        for (Automovil automovil : catalogo.getAutomoviles()) {
+            if (automovil instanceof Coche) {
+                cocheListModel.addElement((Coche) automovil);
+            } else if (automovil instanceof Moto) {
+                motoListModel.addElement((Moto) automovil);
+            } else if (automovil instanceof Camion) {
+                camionListModel.addElement((Camion) automovil);
+            }
+        }
     }
 
-    private void listarAutomoviles() {
-        System.out.println("Coches:");
-        catalogo.listarCoches();
-        System.out.println("\nMotos:");
-        catalogo.listarMotos();
-        System.out.println("\nCamiones:");
-        catalogo.listarCamiones();
-    }
 
+    public static void main(String[] args) {
+        Catalogo catalogo = new Catalogo();
+        new Interfaz(catalogo);
+    }
 }
+

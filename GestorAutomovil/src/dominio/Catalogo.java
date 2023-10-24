@@ -1,12 +1,14 @@
 package dominio;
 
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectOutputStream;
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.UUID;
 
-/**
- * Esta clase representa un catálogo de automóviles.
- */
+
 public class Catalogo implements Serializable {
     private ArrayList<Automovil> automoviles;
 
@@ -14,29 +16,21 @@ public class Catalogo implements Serializable {
         this.automoviles = new ArrayList<>();
     }
 
-    /**
-     * Agrega un automóvil al catálogo generando una referencia única.
-     *
-     * @param automovil El automóvil a agregar.
-     */
+
     public void agregarAutomovil(Automovil automovil) {
         String referencia = UUID.randomUUID().toString();
         automovil.setReferencia(referencia);
         automoviles.add(automovil);
+        saveCatalogo();
     }
 
-    /**
-     * Elimina un automóvil del catálogo por su referencia única.
-     *
-     * @param referencia La referencia única del automóvil a eliminar.
-     */
+
     public void eliminarAutomovil(String referencia) {
         automoviles.removeIf(auto -> auto.getReferencia().equals(referencia));
+        saveCatalogo();
     }
 
-    /**
-     * Lista los automóviles en el catálogo.
-     */
+
     public void listarCoches() {
         automoviles.stream()
                 .filter(auto -> auto instanceof Coche)
@@ -54,4 +48,18 @@ public class Catalogo implements Serializable {
                 .filter(auto -> auto instanceof Camion)
                 .forEach(System.out::println);
     }
+    
+    public List<Automovil> getAutomoviles() {
+        return automoviles;
+    }
+    private void saveCatalogo() {
+        try (FileOutputStream fileOutputStream = new FileOutputStream("catalogo.ser");
+             ObjectOutputStream objectOutputStream = new ObjectOutputStream(fileOutputStream)) {
+            objectOutputStream.writeObject(this);
+            System.out.println("Catalogo saved successfully.");
+        } catch (IOException e) {
+            System.err.println("Error saving the catalog.");
+        }
+    }
 }
+

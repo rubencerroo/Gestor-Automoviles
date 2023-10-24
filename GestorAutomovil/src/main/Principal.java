@@ -11,10 +11,10 @@ import interfaz.Interfaz;
 
 public class Principal {
     public static void main(String[] args) {
-        Catalogo catalogo = cargarCatalogo(); // Load the catalog when the program starts
-        Interfaz interfaz = new Interfaz(catalogo);
-        interfaz.iniciar();
-        guardarCatalogo(catalogo); // Save the catalog when the program exits
+        Catalogo catalogo = cargarCatalogo();
+        new Interfaz(catalogo);
+        
+        guardarCatalogo(catalogo);
     }
 
     private static Catalogo cargarCatalogo() {
