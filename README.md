@@ -80,13 +80,13 @@ Estos diagramas UML son proporcionados "tal cual" y no se garantiza su exactitud
 ¡Gracias por su comprensión y precaución al utilizar los diagramas UML generados automáticamente!
 
 ## LICENSE
-         Copyright 2023 rubencerroo
+   Copyright 2023 rubencerroo
    
    Licensed under the Apache License, Version 2.0 (the "License");
    you may not use this file except in compliance with the License.
    You may obtain a copy of the License at
    
-         http://www.apache.org/licenses/LICENSE-2.0
+   http://www.apache.org/licenses/LICENSE-2.0
 
    Unless required by applicable law or agreed to in writing, software
    distributed under the License is distributed on an "AS IS" BASIS,
