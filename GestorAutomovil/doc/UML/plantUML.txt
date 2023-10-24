@@ -1,4 +1,5 @@
 @startuml
+!theme blueprint
 class main.Principal {
   + main(args: String[]): void
 }
@@ -19,31 +20,97 @@ class dominio.Automovil {
   + getPrecio(): double
   + setPrecio(precio: double): void
   + toString(): String
+  - generarReferenciaUnica(): String
+}
+class dominio.Camion {
+  - capacidadCarga: double
+  + getCapacidadCarga(): double
+  + setCapacidadCarga(capacidadCarga: double): void
 }
 class dominio.Catalogo {
   - automoviles: ArrayList
   + agregarAutomovil(automovil: Automovil): void
   + eliminarAutomovil(referencia: String): void
-  + listarAutomoviles(): void
+  + listarCoches(): void
+  + listarMotos(): void
+  + listarCamiones(): void
+  + getAutomoviles(): List
+  - saveCatalogo(): void
+}
+class dominio.Coche {
+  - numeroPuertas: int
+  + getNumeroPuertas(): int
+  + setNumeroPuertas(numeroPuertas: int): void
+}
+class dominio.Moto {
+  - tieneMarchas: boolean
+  + isTieneMarchas(): boolean
+  + setTieneMarchas(tieneMarchas: boolean): void
+}
+class interfaz.Interfaz {
+  - frame: JFrame
+  - catalogo: Catalogo
+  - cocheListModel: DefaultListModel
+  - motoListModel: DefaultListModel
+  - camionListModel: DefaultListModel
+  - showCocheDialog(): void
+  - showMotoDialog(): void
+  - showCamionDialog(): void
+  - refreshLists(): void
+  + main(args: String): void
 }
 
 
+!theme blueprint
 annotation java.lang.Override
 class dominio.Automovil
+class dominio.Camion
 class dominio.Catalogo
+class dominio.Coche
+class dominio.Moto
+class interfaz.Interfaz
+class java.awt.event.ActionEvent
+class java.awt.event.ActionListener
+class java.awt.event.MouseAdapter
+class java.awt.event.MouseEvent
+class java.io.FileInputStream
+class java.io.FileOutputStream
+class java.io.IOException
+class java.io.ObjectInputStream
+class java.io.ObjectOutputStream
 class java.util.ArrayList
-class java.util.InputMismatchException
-class java.util.Scanner
+class java.util.List
 class java.util.UUID
 class main.Principal
 interface java.io.Serializable
 dominio.Automovil ..> java.lang.Override
+dominio.Automovil ..> java.util.UUID
 dominio.Automovil --|> java.io.Serializable
+dominio.Camion --|> dominio.Automovil
+dominio.Catalogo ..> java.io.FileOutputStream
+dominio.Catalogo ..> java.io.IOException
+dominio.Catalogo ..> java.io.ObjectOutputStream
 dominio.Catalogo ..> java.util.ArrayList
+dominio.Catalogo ..> java.util.List
 dominio.Catalogo ..> java.util.UUID
 dominio.Catalogo --|> java.io.Serializable
-main.Principal ..> dominio.Automovil
+dominio.Coche --|> dominio.Automovil
+dominio.Moto --|> dominio.Automovil
+interfaz.Interfaz ..> java.lang.Override
+interfaz.Interfaz ..> dominio.Automovil
+interfaz.Interfaz ..> dominio.Camion
+interfaz.Interfaz ..> dominio.Catalogo
+interfaz.Interfaz ..> dominio.Coche
+interfaz.Interfaz ..> dominio.Moto
+interfaz.Interfaz ..> java.awt.event.ActionEvent
+interfaz.Interfaz ..> java.awt.event.ActionListener
+interfaz.Interfaz ..> java.awt.event.MouseAdapter
+interfaz.Interfaz ..> java.awt.event.MouseEvent
 main.Principal ..> dominio.Catalogo
-main.Principal ..> java.util.InputMismatchException
-main.Principal ..> java.util.Scanner
+main.Principal ..> interfaz.Interfaz
+main.Principal ..> java.io.FileInputStream
+main.Principal ..> java.io.FileOutputStream
+main.Principal ..> java.io.IOException
+main.Principal ..> java.io.ObjectInputStream
+main.Principal ..> java.io.ObjectOutputStream
 @enduml
