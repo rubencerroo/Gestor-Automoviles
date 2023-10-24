@@ -13,6 +13,9 @@ import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
+/**
+ * Clase que representa la interfaz grafica para gestionar un catalogo de automoviles.
+ */
 public class Interfaz {
     private JFrame frame;
     private Catalogo catalogo;
@@ -20,6 +23,11 @@ public class Interfaz {
     private DefaultListModel<Moto> motoListModel;
     private DefaultListModel<Camion> camionListModel;
 
+    /**
+     * Constructor de la clase Interfaz.
+     *
+     * @param catalogo El catalogo de automoviles que se gestionara en la interfaz.
+     */
     public Interfaz(Catalogo catalogo) {
         this.catalogo = catalogo;
 
@@ -90,7 +98,7 @@ public class Interfaz {
         cocheList.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
-                if (e.getClickCount() == 2) { // Double-click
+                if (e.getClickCount() == 2) { //Doble-click
                     int selectedIndex = cocheList.getSelectedIndex();
                     if (selectedIndex != -1) {
                         int option = JOptionPane.showConfirmDialog(frame,
@@ -110,7 +118,7 @@ public class Interfaz {
         motoList.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
-                if (e.getClickCount() == 2) { // Double-click
+                if (e.getClickCount() == 2) { // Doble-click
                     int selectedIndex = motoList.getSelectedIndex();
                     if (selectedIndex != -1) {
                         int option = JOptionPane.showConfirmDialog(frame,
@@ -204,7 +212,12 @@ public class Interfaz {
         }
     }
 
-
+    /**
+     * Metodo principal para iniciar la aplicación.
+     *
+     * @param args Los argumentos de la linea de comandos (no se utilizan en este
+     *             caso).
+     */
     public static void main(String[] args) {
         Catalogo catalogo = new Catalogo();
         new Interfaz(catalogo);
