@@ -8,6 +8,8 @@ import dominio.Moto;
 
 import javax.swing.*;
 import javax.swing.border.TitledBorder;
+import javax.swing.event.DocumentEvent;
+import javax.swing.event.DocumentListener;
 
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -24,6 +26,7 @@ public class Interfaz {
     private DefaultListModel<Coche> cocheListModel;
     private DefaultListModel<Moto> motoListModel;
     private DefaultListModel<Camion> camionListModel;
+    private JTextField searchField;
 
     /**
      * Constructor de la clase Interfaz.
@@ -36,28 +39,50 @@ public class Interfaz {
         frame = new JFrame("Gestor Automoviles");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setSize(800, 400);
-        frame.setLayout(new GridLayout(4, 1));
+        frame.setLayout(new GridBagLayout());
+
+        GridBagConstraints gbc = new GridBagConstraints();
+
+        searchField = new JTextField();
+        gbc.gridx = 0;
+        gbc.gridy = 0;
+        gbc.fill = GridBagConstraints.HORIZONTAL;
+        gbc.weightx = 1.0;
+        searchField.setBorder(BorderFactory.createTitledBorder("Buscador por Marca o Modelo"));
+        frame.add(searchField, gbc);
 
         cocheListModel = new DefaultListModel<>();
         JList<Coche> cocheList = new JList<>(cocheListModel);
         JScrollPane cocheScrollPane = new JScrollPane(cocheList);
         TitledBorder cocheBorder = BorderFactory.createTitledBorder("Coches");
         cocheScrollPane.setBorder(cocheBorder);
-        frame.add(cocheScrollPane);
+        gbc.gridx = 0;
+        gbc.gridy = 1;
+        gbc.weighty = 1.0;
+        gbc.fill = GridBagConstraints.BOTH;
+        frame.add(cocheScrollPane, gbc);
 
         motoListModel = new DefaultListModel<>();
         JList<Moto> motoList = new JList<>(motoListModel);
         JScrollPane motoScrollPane = new JScrollPane(motoList);
         TitledBorder motoBorder = BorderFactory.createTitledBorder("Motos");
         motoScrollPane.setBorder(motoBorder);
-        frame.add(motoScrollPane);
+        gbc.gridx = 0;
+        gbc.gridy = 2;
+        gbc.weighty = 1.0;
+        gbc.fill = GridBagConstraints.BOTH;
+        frame.add(motoScrollPane, gbc);
 
         camionListModel = new DefaultListModel<>();
         JList<Camion> camionList = new JList<>(camionListModel);
         JScrollPane camionScrollPane = new JScrollPane(camionList);
         TitledBorder camionBorder = BorderFactory.createTitledBorder("Camiones");
         camionScrollPane.setBorder(camionBorder);
-        frame.add(camionScrollPane);
+        gbc.gridx = 0;
+        gbc.gridy = 3;
+        gbc.weighty = 1.0;
+        gbc.fill = GridBagConstraints.BOTH;
+        frame.add(camionScrollPane, gbc);
 
         JPanel buttonPanel = new JPanel();
         buttonPanel.setLayout(new GridLayout(0, 1));
@@ -71,13 +96,34 @@ public class Interfaz {
         buttonPanel.add(agregarMotoButton);
         buttonPanel.add(agregarCamionButton);
         buttonPanel.add(salirButton);
-        frame.add(buttonPanel);
+        gbc.gridx = 0; 
+        gbc.gridy = 4; 
+        gbc.weighty = 1.0; 
+        gbc.fill = GridBagConstraints.BOTH;
+        frame.add(buttonPanel, gbc);
         refreshLists();
 
         agregarCocheButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 showCocheDialog();
                 refreshLists();
+            }
+        });
+
+        searchField.getDocument().addDocumentListener(new DocumentListener() {
+            @Override
+            public void insertUpdate(DocumentEvent e) {
+                filterLists(searchField.getText());
+            }
+
+            @Override
+            public void removeUpdate(DocumentEvent e) {
+                filterLists(searchField.getText());
+            }
+
+            @Override
+            public void changedUpdate(DocumentEvent e) {
+                filterLists(searchField.getText());
             }
         });
 
@@ -102,7 +148,6 @@ public class Interfaz {
             }
         });
 
-        
         cocheList.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
@@ -110,7 +155,7 @@ public class Interfaz {
                     int selectedIndex = cocheList.getSelectedIndex();
                     if (selectedIndex != -1) {
                         int option = JOptionPane.showConfirmDialog(frame,
-                                "Eliminar este Coche?", "Confirmar Eliminaci\u00f3n",
+                                "Eliminar este Coche?", "Confirmar Eliminacion",
                                 JOptionPane.YES_NO_OPTION);
                         if (option == JOptionPane.YES_OPTION) {
                             Coche selectedCoche = cocheListModel.get(selectedIndex);
@@ -118,8 +163,8 @@ public class Interfaz {
                             cocheListModel.removeElement(selectedCoche);
                         }
                     }
+                    refreshLists();
                 }
-                refreshLists();
             }
         });
 
@@ -130,7 +175,7 @@ public class Interfaz {
                     int selectedIndex = motoList.getSelectedIndex();
                     if (selectedIndex != -1) {
                         int option = JOptionPane.showConfirmDialog(frame,
-                                "Eliminar esta Moto?", "Confirmar Eliminaci\u00f3n",
+                                "Eliminar esta Moto?", "Confirmar Eliminacion",
                                 JOptionPane.YES_NO_OPTION);
                         if (option == JOptionPane.YES_OPTION) {
                             Moto selectedMoto = motoListModel.get(selectedIndex);
@@ -138,8 +183,8 @@ public class Interfaz {
                             motoListModel.removeElement(selectedMoto);
                         }
                     }
+                    refreshLists();
                 }
-                refreshLists();
             }
         });
 
@@ -150,7 +195,7 @@ public class Interfaz {
                     int selectedIndex = camionList.getSelectedIndex();
                     if (selectedIndex != -1) {
                         int option = JOptionPane.showConfirmDialog(frame,
-                                "Eliminar este Camion?", "Confirmar Eliminaci\u00f3n",
+                                "Eliminar este Camion?", "Confirmar Eliminacion",
                                 JOptionPane.YES_NO_OPTION);
                         if (option == JOptionPane.YES_OPTION) {
                             Camion selectedCamion = camionListModel.get(selectedIndex);
@@ -158,8 +203,8 @@ public class Interfaz {
                             camionListModel.removeElement(selectedCamion);
                         }
                     }
+                    refreshLists();
                 }
-                refreshLists();
             }
         });
 
@@ -171,7 +216,7 @@ public class Interfaz {
         String modelo = JOptionPane.showInputDialog(frame, "Ingrese el modelo del Coche:");
         int year = Integer.parseInt(JOptionPane.showInputDialog(frame, "Ingrese el a\u00f1o del Coche:"));
         double precio = Double.parseDouble(JOptionPane.showInputDialog(frame, "Ingrese el precio del Coche:"));
-        int numeroPuertas = Integer.parseInt(JOptionPane.showInputDialog(frame, "Ingrese el n\u00famero de puertas del Coche:"));
+        int numeroPuertas = Integer.parseInt(JOptionPane.showInputDialog(frame, "Ingrese el numero de puertas del Coche:"));
 
         Coche coche = new Coche(marca, modelo, year, precio, numeroPuertas);
         catalogo.agregarAutomovil(coche);
@@ -203,12 +248,10 @@ public class Interfaz {
     }
 
     private void refreshLists() {
-        
         cocheListModel.clear();
         motoListModel.clear();
         camionListModel.clear();
 
-        
         for (Automovil automovil : catalogo.getAutomoviles()) {
             if (automovil instanceof Coche) {
                 cocheListModel.addElement((Coche) automovil);
@@ -219,16 +262,32 @@ public class Interfaz {
             }
         }
     }
+    
+    private void filterLists(String searchTerm) {
+        cocheListModel.clear();
+        motoListModel.clear();
+        camionListModel.clear();
+
+        for (Automovil automovil : catalogo.getAutomoviles()) {
+            if (automovil.matchesSearchTerm(searchTerm)) {
+                if (automovil instanceof Coche) {
+                    cocheListModel.addElement((Coche) automovil);
+                } else if (automovil instanceof Moto) {
+                    motoListModel.addElement((Moto) automovil);
+                } else if (automovil instanceof Camion) {
+                    camionListModel.addElement((Camion) automovil);
+                }
+            }
+        }
+    }
 
     /**
-     * Metodo principal para iniciar la aplicación.
+     * Metodo principal para iniciar la aplicacion.
      *
-     * @param args Los argumentos de la linea de comandos (no se utilizan en este
-     *             caso).
+     * @param args Los argumentos de la linea de comandos (no se utilizan en este caso).
      */
     public static void main(String[] args) {
         Catalogo catalogo = new Catalogo();
         new Interfaz(catalogo);
     }
 }
-

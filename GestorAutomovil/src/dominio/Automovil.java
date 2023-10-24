@@ -137,4 +137,23 @@ public class Automovil implements Serializable {
     private String generarReferenciaUnica() {
         return UUID.randomUUID().toString();
     }
+    
+    /**
+     * Compruebe si esta instancia de automóvil coincide con un término de búsqueda.
+     *
+     * @param searchTerm El término de búsqueda con el que comparar.
+     * @return verdadero si este automóvil coincide con el término de búsqueda,
+     *         falso en caso contrario.
+     */
+    public boolean matchesSearchTerm(String searchTerm) {
+        // Implementar la lógica para comprobar si este automóvil coincide con el
+        // término de búsqueda.
+        // Puedes comparar el término de búsqueda con cualquier atributo relevante del
+        // automóvil.
+        // Por ejemplo, puedes comprobar si el término de búsqueda está contenido en la
+        // marca,
+        // modelo, o cualquier otro atributo.
+        return marca.contains(searchTerm) || modelo.contains(searchTerm);
+    }
+
 }
