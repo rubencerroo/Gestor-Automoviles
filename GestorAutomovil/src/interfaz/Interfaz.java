@@ -81,7 +81,7 @@ public class Interfaz {
 
         salirButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                JOptionPane.showMessageDialog(frame, "Saliendo del programa.");
+                JOptionPane.showMessageDialog(frame, "Saliendo del programa...");
                 System.exit(0);
             }
         });
