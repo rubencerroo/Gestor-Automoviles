@@ -60,9 +60,22 @@ Este programa de gestión de catálogo de automóviles te permite agregar, elimi
 ## Diagrama UML
 ![UMLDiagram](https://github.com/rubencerroo/Gestor-Automoviles/assets/119308526/69387eca-7e1e-48df-b4c3-b422bd8aac18)
 
+## Captura De El Programa
+![image](https://github.com/rubencerroo/Gestor-Automoviles/assets/119308526/ac32c62f-8c41-4279-b694-fe2063783f85)
 
 
 ## Notas Adicionales
 
 - Los archivos generados (archivos binarios y documentación) se almacenan en las carpetas `bin` y `doc`.
 
+Los diagramas UML que visualiza en este programa se generan automáticamente (con un programa propio) a partir de los archivos .java y no han sido revisados manualmente. Por lo tanto, tenga en cuenta lo siguiente:
+
+1. Los diagramas UML se generan con fines ilustrativos y pueden contener errores, omisiones o representaciones incompletas de la estructura y relaciones del sistema.
+
+2. La precisión de la información en los diagramas UML depende de la exactitud de los datos de entrada y la implementación del programa. Pueden producirse discrepancias entre la realidad y los diagramas generados.
+
+3. Se recomienda utilizar los diagramas UML como una referencia inicial y no como la única fuente de información sobre la arquitectura del sistema. En caso de duda o para una comprensión precisa, consulte con rubencerroo
+
+Estos diagramas UML son proporcionados "tal cual" y no se garantiza su exactitud o idoneidad para ningún propósito específico. El uso de esta información está bajo su propia responsabilidad.
+
+¡Gracias por su comprensión y precaución al utilizar los diagramas UML generados automáticamente!
