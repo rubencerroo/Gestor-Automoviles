@@ -1,4 +1,4 @@
-# Catalogo de Automóviles
+# Catalogo de Automóviles Con Herencia e interfaz Grafica
 
 ## Descripción
 Este programa de gestión de catálogo de automóviles te permite agregar, eliminar y listar automóviles. Además, guarda automáticamente el catálogo en un archivo serializado, lo que te permite retomar tu trabajo donde lo dejaste de forma segura.
@@ -6,14 +6,14 @@ Este programa de gestión de catálogo de automóviles te permite agregar, elimi
 ## Funcionalidades
 
 ### Para Usuarios
-- **Agregar Automóvil:** Puedes agregar un automóvil especificando su marca, modelo, año y precio. El programa generará automáticamente una referencia única para cada automóvil.
+- **Agregar Automóvil:** Puedes agregar un automóvil especificando su marca, modelo, año y precio (Mas posibilidades para distintos tipos de Automovil).El programa generará automáticamente una referencia única para cada automóvil.
 
-- **Eliminar Automóvil:** Puedes eliminar un automóvil utilizando su referencia. Esto evita confusiones si varios automóviles tienen caracteristicas iguales.
+- **Eliminar Automóvil:** Puedes eliminar un automóvilhaciendo Doble-Click sobre el mismo. Esto evita confusiones si varios automóviles tienen caracteristicas iguales.
 
 - **Listar Automóviles:** Puedes ver la lista completa de automóviles en tu catálogo, incluyendo su referencia.
 
 ### Para Desarrolladores
-- El proyecto está estructurado en paquetes (`main` y `dominio`) para mantener un código limpio y organizado.
+- El proyecto está estructurado en paquetes (`main`, `dominio` y `interfaz`) para mantener un código limpio y organizado.
 
 - Se utiliza un archivo Manifest para especificar la clase principal del programa al crear el archivo JAR.
 
@@ -43,7 +43,7 @@ Este programa de gestión de catálogo de automóviles te permite agregar, elimi
    
 5. Sigue las opciones del menú para gestionar tu catálogo de automóviles.
 
-6. Los cambios se guardarán automáticamente en un archivo `catalogo.ser` al presionar 0 para salir del programa.
+6. Los cambios se guardarán automáticamente en un archivo `catalogo.ser`.
 7. La proxima vez puedes simplemente ejecutar el programa haciendo:
    ```console
    make run
@@ -58,7 +58,8 @@ Este programa de gestión de catálogo de automóviles te permite agregar, elimi
 - `make completo`: Ejecuta todos los anteriores para que el programa funcione correctamente.
 
 ## Diagrama UML
-![UMLDiagram](https://github.com/rubencerroo/Gestor-Automoviles/assets/119308526/2ef609a2-e6b9-4eee-9c6f-6185e7d07ad2)
+![UMLDiagram](https://github.com/rubencerroo/Gestor-Automoviles/assets/119308526/69387eca-7e1e-48df-b4c3-b422bd8aac18)
+
 
 
 ## Notas Adicionales
