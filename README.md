@@ -61,7 +61,7 @@ Este programa de gestión de catálogo de automóviles te permite agregar, elimi
 ![UMLDiagram](https://github.com/rubencerroo/Gestor-Automoviles/assets/119308526/69387eca-7e1e-48df-b4c3-b422bd8aac18)
 
 ## Captura De El Programa
-![image](https://github.com/rubencerroo/Gestor-Automoviles/assets/119308526/96d63fca-e9b6-4eb8-b3dd-0cfc25878669)
+![image](https://github.com/rubencerroo/Gestor-Automoviles/assets/119308526/af442cc9-9686-4595-9880-7410bb04481b)
 
 ## Notas Adicionales
 
