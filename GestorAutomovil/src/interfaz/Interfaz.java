@@ -7,6 +7,8 @@ import dominio.Coche;
 import dominio.Moto;
 
 import javax.swing.*;
+import javax.swing.border.TitledBorder;
+
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -39,16 +41,22 @@ public class Interfaz {
         cocheListModel = new DefaultListModel<>();
         JList<Coche> cocheList = new JList<>(cocheListModel);
         JScrollPane cocheScrollPane = new JScrollPane(cocheList);
+        TitledBorder cocheBorder = BorderFactory.createTitledBorder("Coches");
+        cocheScrollPane.setBorder(cocheBorder);
         frame.add(cocheScrollPane);
 
         motoListModel = new DefaultListModel<>();
         JList<Moto> motoList = new JList<>(motoListModel);
         JScrollPane motoScrollPane = new JScrollPane(motoList);
+        TitledBorder motoBorder = BorderFactory.createTitledBorder("Motos");
+        motoScrollPane.setBorder(motoBorder);
         frame.add(motoScrollPane);
 
         camionListModel = new DefaultListModel<>();
         JList<Camion> camionList = new JList<>(camionListModel);
         JScrollPane camionScrollPane = new JScrollPane(camionList);
+        TitledBorder camionBorder = BorderFactory.createTitledBorder("Camiones");
+        camionScrollPane.setBorder(camionBorder);
         frame.add(camionScrollPane);
 
         JPanel buttonPanel = new JPanel();
